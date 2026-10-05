@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Playwright Chromium Tests",
+			"type": "shell",
+			"command": "npm.cmd",
+			"args": [
+				"test",
+				"--",
+				"--reporter=line"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}

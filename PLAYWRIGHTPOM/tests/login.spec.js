@@ -2,7 +2,7 @@ const { test, expect } = require('../fixtures/test.fixture');
 const { validUser, invalidUsername } = require('../test-data/users');
 
 test.describe('Login', () => {
-  test('valid username and valid password', async ({ loginPage, homePage }) => {
+  test('valid username and valid password', async ({ page, loginPage, homePage }) => {
     await loginPage.open();
     await loginPage.login(validUser.username, validUser.password);
 

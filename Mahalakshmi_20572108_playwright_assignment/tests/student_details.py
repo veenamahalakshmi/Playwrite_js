@@ -1,0 +1,4 @@
+import student
+
+
+student.display()

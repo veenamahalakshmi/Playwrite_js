@@ -1,3 +1,8 @@
+
+# Day 5 Task 4 Mahalakshmi -20572108
+import tkinter as tk
+
+
 def add(a, b):
     return a + b
 
@@ -17,32 +22,55 @@ def divide(a, b):
 
 
 def main():
-    print("Calculator")
-    print("1. Add")
-    print("2. Subtract")
-    print("3. Multiply")
-    print("4. Divide")
+    window = tk.Tk()
+    window.title("Simple Calculator")
+    window.resizable(False, False)
 
-    choice = input("Choose an operation (1-4): ").strip()
-    if choice not in {"1", "2", "3", "4"}:
-        print("Invalid choice. Please choose a number from 1 to 4.")
-        return
+    tk.Label(window, text="First number:").grid(
+        row=0, column=0, padx=10, pady=(10, 5), sticky="w"
+    )
+    first_entry = tk.Entry(window)
+    first_entry.grid(row=0, column=1, padx=10, pady=(10, 5))
 
-    try:
-        first_number = float(input("Enter the first number: "))
-        second_number = float(input("Enter the second number: "))
-    except ValueError:
-        print("Invalid input. Please enter numeric values.")
-        return
+    tk.Label(window, text="Second number:").grid(
+        row=1, column=0, padx=10, pady=5, sticky="w"
+    )
+    second_entry = tk.Entry(window)
+    second_entry.grid(row=1, column=1, padx=10, pady=5)
 
-    operations = {
-        "1": ("Sum", add),
-        "2": ("Difference", subtract),
-        "3": ("Product", multiply),
-        "4": ("Quotient", divide),
-    }
-    label, operation = operations[choice]
-    print(f"{label}: {operation(first_number, second_number)}")
+    result_label = tk.Label(window, text="Result: ")
+    result_label.grid(row=3, column=0, columnspan=2, padx=10, pady=(5, 10))
+
+    def calculate(operation):
+        try:
+            first_number = float(first_entry.get())
+            second_number = float(second_entry.get())
+        except ValueError:
+            result_label.config(text="Please enter valid numbers.")
+            return
+
+        result = operation(first_number, second_number)
+        if isinstance(result, str):
+            result_label.config(text=result)
+        else:
+            result_label.config(text=f"Result: {result}")
+
+    operations = (
+        ("Add", add),
+        ("Subtract", subtract),
+        ("Multiply", multiply),
+        ("Divide", divide),
+    )
+    for index, (label, operation) in enumerate(operations):
+        tk.Button(
+            window,
+            text=label,
+            command=lambda selected_operation=operation: calculate(
+                selected_operation
+            ),
+        ).grid(row=2, column=index % 2, padx=10, pady=5, sticky="ew")
+
+    window.mainloop()
 
 
 if __name__ == "__main__":
